@@ -1,14 +1,31 @@
 #include <stdio.h>
+#include <string.h>
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
 
-int main(){
+int main(int argc, char **argv){
 
     DIR *d; 
     struct dirent *entry; 
     struct stat sb; 
-    d = opendir("./"); 
+    char input[100]; 
+    
+    if(argv[1] != NULL){
+        strncpy(input, argv[1], sizeof(input)-1);
+    }
+    else{
+        printf("Input a directory to scan: ");
+        scanf("%s", input);
+    }
+
+    d = opendir(input); 
+    if(d == NULL){
+        printf("Error %d: %s\n", errno, strerror(errno));
+        return -1; 
+    }
+
     entry = readdir(d);
 
     printf("Statistics for directory: %s\n", entry->d_name);
