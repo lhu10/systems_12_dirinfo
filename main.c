@@ -28,7 +28,7 @@ int main(int argc, char **argv){
 
     entry = readdir(d);
 
-    printf("Statistics for directory: %s\n", entry->d_name);
+    printf("Statistics for directory: %s\n", input);
     
     int total_size; 
     total_size = 0; 
